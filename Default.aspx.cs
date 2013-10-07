@@ -36,6 +36,7 @@ public partial class _Default : Page
             }
             GridView1.DataSource = dt;
             GridView1.DataBind();
+
         }
     }
 
@@ -55,6 +56,7 @@ public partial class _Default : Page
             {
                 cookie = new HttpCookie("cart_" + ID);
                 cookie["amount"] = "1";
+                cookie["id"] = ID.ToString();
             }
             else
             {

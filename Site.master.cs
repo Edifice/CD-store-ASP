@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Data;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -14,6 +16,31 @@ public partial class SiteMaster : MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
+        // -- OUR CODE
+        
+        // Cookie reading
+        DataTable cartTable = new DataTable();
+        cartTable.Columns.Add("Albums", typeof(string));
+        XmlDocument xmldoc2 = new XmlDocument();
+        foreach (string cookieName in Request.Cookies.AllKeys)
+        {
+            HttpCookie cookie = Request.Cookies[cookieName];
+            if (cookie.Name.Contains("cart_"))
+            {
+                int amount = int.Parse(cookie["amount"]);
+                Album album = new Album();
+                album = album.findById(int.Parse(cookie["id"]), Server);
+
+                DataRow dtrow = cartTable.NewRow();
+                dtrow["Albums"] = album.Artist + " - " + album.Title + " (" + amount + " x " + album.Price + " kr.)";
+                cartTable.Rows.Add(dtrow);
+            }
+        }
+        GridViewCart.DataSource = cartTable;
+        GridViewCart.DataBind();
+
+        // -- OUR CODE END
+
         // The code below helps to protect against XSRF attacks
         var requestCookie = Request.Cookies[AntiXsrfTokenKey];
         Guid requestCookieGuidValue;
@@ -66,5 +93,16 @@ public partial class SiteMaster : MasterPage
     protected void Page_Load(object sender, EventArgs e)
     {
 
+    }
+
+    public bool showCart()
+    {
+        foreach(string c in Request.Cookies.AllKeys){
+            if (c.Contains("cart_"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

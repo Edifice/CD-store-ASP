@@ -4,24 +4,24 @@
     <id>1</id>
     <artist>Tenacious D</artist>
     <title>The pick of Destiny</title>
-    <price>199.99</price>
+    <price>199,99</price>
   </album>
   <album>
     <id>2</id>
     <artist>Bob Marley</artist>
     <title>Babylon</title>
-    <price>159.99</price>
+    <price>159,99</price>
   </album>
   <album>
     <id>3</id>
     <artist>LMFAO</artist>
     <title>Party Rock</title>
-    <price>19.99</price>
+    <price>19,99</price>
   </album>
   <album>
     <id>4</id>
     <artist>Michael Jackson</artist>
     <title>Thriller</title>
-    <price>489.80</price>
+    <price>489,80</price>
   </album>
 </store>

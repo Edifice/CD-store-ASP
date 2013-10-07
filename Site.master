@@ -71,6 +71,19 @@
         </div>
     </header>
     <div id="body">
+        <% if(showCart()){ %>
+            <section class="featured">
+                <div class="content-wrapper">
+                    <hgroup class="title">
+                        <h1>Your cart:</h1>
+                        <h2>Here is a list of all albums, that you have choosen to buy.</h2>
+                    </hgroup>
+                    <p>
+                        <asp:GridView ID="GridViewCart" runat="server" />
+                    </p>
+                </div>
+            </section>
+        <% } %>
         <section class="content-wrapper main-content clear-fix">
             <asp:ContentPlaceHolder runat="server" ID="MainContent" />
         </section>
