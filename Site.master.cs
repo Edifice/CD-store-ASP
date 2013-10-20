@@ -17,7 +17,7 @@ public partial class SiteMaster : MasterPage
     protected void Page_Init(object sender, EventArgs e)
     {
         // -- OUR CODE
-        
+
         // Cookie reading
         DataTable cartTable = new DataTable();
         cartTable.Columns.Add("Albums", typeof(string));
@@ -97,7 +97,8 @@ public partial class SiteMaster : MasterPage
 
     public bool showCart()
     {
-        foreach(string c in Request.Cookies.AllKeys){
+        foreach (string c in Request.Cookies.AllKeys)
+        {
             if (c.Contains("cart_"))
             {
                 return true;

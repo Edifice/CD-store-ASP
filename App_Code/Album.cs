@@ -23,7 +23,7 @@ public class Album
 
     public Album findById(int id, HttpServerUtility Server){
         XmlDocument doc = new XmlDocument();
-        doc.Load(Server.MapPath("App_Data/data.xml"));
+        doc.Load(Server.MapPath("/App_Data/data.xml"));
 
         XmlNodeList nodeList = doc.GetElementsByTagName("album");
         foreach (XmlNode node in nodeList)

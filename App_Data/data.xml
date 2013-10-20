@@ -24,4 +24,10 @@
     <title>Thriller</title>
     <price>489,80</price>
   </album>
+  <album>
+    <id>5</id>
+    <artist>d</artist>
+    <title>d</title>
+    <price>4</price>
+  </album>
 </store>

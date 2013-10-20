@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class _Default : Page
+public partial class Default : Page
 {
     XmlDocument vidDocument = new XmlDocument();
 
@@ -67,27 +67,23 @@ public partial class _Default : Page
             cookie.Expires = DateTime.Now.AddDays(30d);
             Response.Cookies.Add(cookie);
         }
+        Response.Redirect(Request.RawUrl);
     }
 
-    protected void btnAdd_Click(object sender, EventArgs e)
+    protected void btnCleanCart(object sender, EventArgs e)
     {
-        XmlNode node = vidDocument.SelectNodes("/store")[0].LastChild;
-        XmlNode newnode = node.CloneNode(true);
+        int count = Request.Cookies.Count;
+        for (int i =0; i < count; i++)
+        {
+            HttpCookie cookie = new HttpCookie(Request.Cookies[i].Name);
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie);
+        }
+        Response.Redirect(Request.RawUrl);
+    }
 
-        newnode.SelectSingleNode("id").InnerText = (int.Parse(newnode.SelectSingleNode("id").InnerText) + 1).ToString();
-        newnode.SelectSingleNode("title").InnerText = txtTitle.Text;
-        newnode.SelectSingleNode("artist").InnerText = txtArtist.Text;
-        newnode.SelectSingleNode("price").InnerText = txtPrice.Text;
-        
-        vidDocument.DocumentElement.AppendChild(newnode);
-
-        XmlNodeList titles = vidDocument.GetElementsByTagName("title");
-        GridView1.DataSource = titles;
-        GridView1.DataBind();
-
-        XmlTextWriter writer = new XmlTextWriter(Server.MapPath("App_Data/data.xml"), null);
-        writer.Formatting = Formatting.Indented;
-        vidDocument.Save(writer);
-        writer.Close();
+    protected void btnCheckOut(object sender, EventArgs e)
+    {
+        Server.Transfer("Checkout.aspx", true);
     }
 }
